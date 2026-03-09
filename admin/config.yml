@@ -1,0 +1,26 @@
+# Netlify CMS 配置文件
+
+# 后端配置：使用GitHub作为代码仓库
+backend:
+  name: github
+  repo: cd1319/cd1319.github.io  # 改成你的仓库名，注意大小写
+  branch: main                     # 你的主分支名称（main或master）
+
+# 本地开发时启用（可选，但建议加上）
+local_backend: true
+
+# 媒体文件（如图片）的存储位置
+media_folder: "images/uploads"     # 上传的图片会保存在仓库的 images/uploads 文件夹
+public_folder: "/images/uploads"   # 图片在网站中的访问路径
+
+# 文章集合配置
+collections:
+  - name: "blog"                    # 集合名称，用于内部标识
+    label: "博客文章"                # 后台显示的标签
+    folder: "_posts"                 # 存放文章的文件夹（如果你没有，后面会创建）
+    create: true                     # 允许创建新文章
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"  # 文章文件名的格式
+    fields:                          # 文章包含的字段
+      - {label: "标题", name: "title", widget: "string"}
+      - {label: "发布日期", name: "date", widget: "datetime", format: "YYYY-MM-DD HH:mm:ss"}
+      - {label: "正文内容", name: "body", widget: "markdown"}
