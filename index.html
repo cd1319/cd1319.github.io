@@ -13,7 +13,16 @@
     <p>当前时间：<span id="time"></span></p>
     
     <script>
+        // 这个函数负责更新时间
+    function updateTime() {
         document.getElementById('time').innerText = new Date().toLocaleString();
+    }
+    
+    // 页面加载时立即显示一次时间
+    updateTime();
+    
+    // 设置一个定时器，每隔1秒钟（1000毫秒）就执行一次updateTime函数
+    setInterval(updateTime, 1000);
     </script>
 </body>
 </html>
