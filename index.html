@@ -3,26 +3,113 @@
 <head>
     <title>我的第一个GitHub Pages博客</title>
     <style>
-        body { font-family: Arial, sans-serif; max-width: 800px; margin: 0 auto; padding: 20px; }
-        h1 { color: #0366d6; }
+        body { 
+            font-family: Arial, sans-serif; 
+            max-width: 800px; 
+            margin: 0 auto; 
+            padding: 20px; 
+            line-height: 1.6;
+        }
+        h1 { 
+            color: #0366d6; 
+        }
+        .publish-info {
+            color: #666;
+            font-size: 0.95em;
+            border-left: 4px solid #0366d6;
+            padding: 12px 15px;
+            margin: 25px 0;
+            background-color: #f8f9fa;
+            border-radius: 0 8px 8px 0;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+        .current-time {
+            color: #28a745;
+            font-weight: bold;
+        }
+        hr {
+            border: none;
+            border-top: 1px dashed #ddd;
+            margin: 30px 0;
+        }
     </style>
 </head>
 <body>
     <h1>🎉 我的博客上线啦！</h1>
+    
+    <!-- 发布时间：由JavaScript自动记录第一次加载的时间 -->
+    <div class="publish-info">
+        📅 本文章发布于 <strong><span id="publish-time"></span></strong>
+    </div>
+    
     <p>这是我通过GitHub Pages搭建的第一个网站。</p>
-    <p>当前时间：<span id="time"></span></p>
+    <p>当前时间：<span class="current-time" id="current-time"></span></p>
     
+    <hr>
+    
+    <p><small>✨ 提示：发布时间是永久的，刷新页面也不会变；当前时间会一直跳动。</small></p>
+
     <script>
-        // 这个函数负责更新时间
-    function updateTime() {
-        document.getElementById('time').innerText = new Date().toLocaleString();
-    }
-    
-    // 页面加载时立即显示一次时间
-    updateTime();
-    
-    // 设置一个定时器，每隔1秒钟（1000毫秒）就执行一次updateTime函数
-    setInterval(updateTime, 1000);
+        // =============================================
+        // 功能1：记录并显示第一次发布的时间（永久保存）
+        // =============================================
+        function getPublishTime() {
+            // 尝试从浏览器的本地存储中读取之前保存的时间
+            let publishTime = localStorage.getItem('blogPublishTime');
+            
+            if (!publishTime) {
+                // 如果没有记录过（第一次访问），就创建当前时间
+                const now = new Date();
+                
+                // 格式化时间为：2026年3月9日09时30分45秒
+                const year = now.getFullYear();
+                const month = now.getMonth() + 1;  // 月份从0开始，所以要+1
+                const day = now.getDate();
+                const hour = now.getHours().toString().padStart(2, '0');
+                const minute = now.getMinutes().toString().padStart(2, '0');
+                const second = now.getSeconds().toString().padStart(2, '0');
+                
+                publishTime = `${year}年${month}月${day}日${hour}时${minute}分${second}秒`;
+                
+                // 把这个时间永久保存在浏览器里
+                localStorage.setItem('blogPublishTime', publishTime);
+                
+                // 顺便在控制台打印一条消息（按F12可以看到）
+                console.log('🎯 首次发布时间已记录：', publishTime);
+            } else {
+                console.log('📌 读取到已保存的发布时间：', publishTime);
+            }
+            
+            return publishTime;
+        }
+        
+        // 把发布时间显示到页面上
+        document.getElementById('publish-time').innerText = getPublishTime();
+        
+        // =============================================
+        // 功能2：实时更新当前时间（每秒跳动）
+        // =============================================
+        function updateCurrentTime() {
+            const now = new Date();
+            
+            // 同样的格式化方式
+            const year = now.getFullYear();
+            const month = now.getMonth() + 1;
+            const day = now.getDate();
+            const hour = now.getHours().toString().padStart(2, '0');
+            const minute = now.getMinutes().toString().padStart(2, '0');
+            const second = now.getSeconds().toString().padStart(2, '0');
+            
+            const currentTimeStr = `${year}年${month}月${day}日${hour}时${minute}分${second}秒`;
+            
+            document.getElementById('current-time').innerText = currentTimeStr;
+        }
+        
+        // 立即执行一次，让时间马上显示
+        updateCurrentTime();
+        
+        // 设置定时器，每秒更新一次
+        setInterval(updateCurrentTime, 1000);
     </script>
 </body>
 </html>
