@@ -4,25 +4,33 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
-  <!-- 增强的光标修复样式 -->
+  <!-- 光标修复样式（作为补充） -->
   <style>
-    /* 强制修正编辑器光标位置 */
     [data-slate-editor] {
       -webkit-user-modify: read-write !important;
       -moz-user-modify: read-write !important;
       user-modify: read-write !important;
     }
-    /* 确保内容区域可滚动，提升体验 */
-    .cms-editor {
-      overflow-y: auto !important;
-    }
   </style>
   <title>博客内容管理</title>
 </head>
 <body>
-  <!-- 将脚本放在 body 底部，确保 DOM 加载完成后再初始化 CMS -->
+  <!-- 1. 先加载 Netlify CMS -->
   <script src="https://unpkg.com/netlify-cms@^2.0.0/dist/netlify-cms.js"></script>
-  <!-- 可选的额外初始化脚本 -->
+  
+  <!-- 2. 再加载 SimpleMDE 插件（解决中文输入问题） -->
+  <script src="https://cdn.jsdelivr.net/npm/netlify-cms-widget-simplemde/dist/main.min.js"></script>
+  
+  <!-- 3. 注册 SimpleMDE 小部件 -->
+  <script>
+    // 确保 CMS 加载完成后再注册
+    if (typeof CMS !== 'undefined') {
+      CMS.registerWidget('simplemde', SimpleMDEControl, SimpleMDEPreview);
+      console.log('SimpleMDE 编辑器已注册，现在可以用中文输入啦！');
+    }
+  </script>
+
+  <!-- 4. 原有的 Identity 处理脚本 -->
   <script>
     if (window.netlifyIdentity) {
       window.netlifyIdentity.on('init', user => {
