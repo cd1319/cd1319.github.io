@@ -1,14 +1,5 @@
-# 启用远程主题（以你喜欢的主题为例）
-remote_theme: cotes2020/jekyll-theme-chirpy  # 或其他主题的用户名/仓库名
-# 在 plugins 里添加 jekyll-remote-theme
-plugins:
-  - jekyll-remote-theme  # 👈 必须添加这一行
-# 其他配置保持不变
+# 先测试官方主题是否正常
+theme: minima
 title: 我的博客
 description: 用Netlify CMS管理的博客
 future: true
-title: cd1319的博客
-description: 用Netlify CMS管理的博客
-future: true      # 显示未来文章
-show_drafts: true # 显示草稿
-limit_posts: 10   # 限制显示数量
