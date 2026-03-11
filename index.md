@@ -14,6 +14,19 @@ layout: default
 
 ## 📚 最新文章
 
+{% comment %} 调试信息 {% endcomment %}
+**调试信息**：
+- 文章数量：{{ site.posts.size }}
+- 当前时间：{{ site.time }}
+
+{% if site.posts.size == 0 %}
+### ⚠️ 没有找到文章
+可能原因：
+- `_posts` 文件夹位置不对（必须在根目录）
+- 文章文件名不是 `YYYY-MM-DD-标题.md` 格式
+- 文章缺少 Front Matter
+- Jekyll 构建配置有问题
+{% else %}
 {% for post in site.posts %}
 ### [{{ post.title }}]({{ post.url }})
 *{{ post.date | date: "%Y-%m-%d" }}*
@@ -23,6 +36,7 @@ layout: default
 [阅读全文]({{ post.url }})  
 ---
 {% endfor %}
+{% endif %}
 
 <style>
 .publish-info {
