@@ -14,12 +14,12 @@ public_folder: "/images/uploads"   # 图片在网站中的访问路径
 
 # 文章集合配置
 collections:
-  - name: "blog"                    # 集合名称，用于内部标识
-    label: "博客文章"                # 后台显示的标签
-    folder: "_posts"                 # 存放文章的文件夹（如果你没有，后面会创建）
-    create: true                     # 允许创建新文章
-    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"  # 文章文件名的格式
-    fields:                          # 文章包含的字段
+  - name: "blog"
+    label: "博客文章"
+    folder: "_posts"
+    create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    fields:
       - {label: "标题", name: "title", widget: "string"}
       - {label: "发布日期", name: "date", widget: "datetime", format: "YYYY-MM-DD HH:mm:ss"}
-      - {label: "正文内容", name: "body", widget: "markdown"}
+      - {label: "正文内容", name: "body", widget: "simplemde"}  # 👈 原来是 "markdown"，改成 "simplemde"
