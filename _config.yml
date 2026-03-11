@@ -1,5 +1,8 @@
-theme: minima
-title: 我的博客
+# 注释掉或删除原来的 theme 行
+# theme: minima
+# 添加远程主题
+remote_theme: cotes2020/jekyll-theme-chirpy
+title: cd1319的博客
 description: 用Netlify CMS管理的博客
 future: true      # 显示未来文章
 show_drafts: true # 显示草稿
