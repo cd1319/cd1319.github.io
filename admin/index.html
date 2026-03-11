@@ -5,6 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
     <title>博客内容管理</title>
+    <!-- 👇 在这里添加下面这段样式代码来修复光标问题 👇 -->
+    <style>
+      div[data-slate-editor] {
+          -webkit-user-modify: read-write !important;
+      }
+    </style>
+    <!-- 👆 样式代码结束 👆 -->
   </head>
   <body>
     <!-- 引入Netlify CMS的核心脚本 -->
