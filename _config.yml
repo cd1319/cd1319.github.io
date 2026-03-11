@@ -1,8 +1,8 @@
 # 注释掉或删除 theme 行
 # theme: minima
 
-# 换成远程主题（以 chirpy 为例）
-remote_theme: "cotes2020/jekyll-theme-chirpy"
+# 换成远程主题（以 midnight为例）
+remote_theme: "pages-themes/midnight"
 
 # 必须添加这个插件
 plugins:
