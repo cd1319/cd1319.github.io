@@ -1,5 +1,14 @@
-# 先测试官方主题是否正常
-theme: minima
+# 注释掉或删除 theme 行
+# theme: minima
+
+# 换成远程主题（以 chirpy 为例）
+remote_theme: cotes2020/jekyll-theme-chirpy
+
+# 必须添加这个插件
+plugins:
+  - jekyll-remote-theme
+
+# 其他配置保持不变
 title: 我的博客
 description: 用Netlify CMS管理的博客
 future: true
