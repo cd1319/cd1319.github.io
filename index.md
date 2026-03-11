@@ -14,19 +14,6 @@ layout: default
 
 ## 📚 最新文章
 
-{% comment %} 调试信息 {% endcomment %}
-**调试信息**：
-- 文章数量：{{ site.posts.size }}
-- 当前时间：{{ site.time }}
-
-{% if site.posts.size == 0 %}
-### ⚠️ 没有找到文章
-可能原因：
-- `_posts` 文件夹位置不对（必须在根目录）
-- 文章文件名不是 `YYYY-MM-DD-标题.md` 格式
-- 文章缺少 Front Matter
-- Jekyll 构建配置有问题
-{% else %}
 {% for post in site.posts %}
 ### [{{ post.title }}]({{ post.url }})
 *{{ post.date | date: "%Y-%m-%d" }}*
@@ -36,7 +23,6 @@ layout: default
 [阅读全文]({{ post.url }})  
 ---
 {% endfor %}
-{% endif %}
 
 <style>
 .publish-info {
@@ -74,14 +60,10 @@ if (window.netlifyIdentity) {
 // 功能1：记录并显示第一次发布的时间（永久保存）
 // =============================================
 function getPublishTime() {
-    // 尝试从浏览器的本地存储中读取之前保存的时间
     let publishTime = localStorage.getItem('blogPublishTime');
     
     if (!publishTime) {
-        // 如果没有记录过（第一次访问），就创建当前时间
         const now = new Date();
-        
-        // 格式化时间为：2026年3月9日09时30分45秒
         const year = now.getFullYear();
         const month = now.getMonth() + 1;
         const day = now.getDate();
@@ -90,11 +72,7 @@ function getPublishTime() {
         const second = now.getSeconds().toString().padStart(2, '0');
         
         publishTime = `${year}年${month}月${day}日${hour}时${minute}分${second}秒`;
-        
-        // 把这个时间永久保存在浏览器里
         localStorage.setItem('blogPublishTime', publishTime);
-        
-        // 顺便在控制台打印一条消息（按F12可以看到）
         console.log('🎯 首次发布时间已记录：', publishTime);
     } else {
         console.log('📌 读取到已保存的发布时间：', publishTime);
@@ -103,7 +81,6 @@ function getPublishTime() {
     return publishTime;
 }
 
-// 把发布时间显示到页面上
 document.getElementById('publish-time').innerText = getPublishTime();
 
 // =============================================
@@ -111,8 +88,6 @@ document.getElementById('publish-time').innerText = getPublishTime();
 // =============================================
 function updateCurrentTime() {
     const now = new Date();
-    
-    // 同样的格式化方式
     const year = now.getFullYear();
     const month = now.getMonth() + 1;
     const day = now.getDate();
@@ -122,17 +97,12 @@ function updateCurrentTime() {
     
     const currentTimeStr = `${year}年${month}月${day}日${hour}时${minute}分${second}秒`;
     
-    // 注意：你需要一个 id="current-time" 的元素来显示当前时间
-    // 如果你没有这个元素，可以删掉这行，或者添加一个
     const currentTimeEl = document.getElementById('current-time');
     if (currentTimeEl) {
         currentTimeEl.innerText = currentTimeStr;
     }
 }
 
-// 立即执行一次，让时间马上显示
 updateCurrentTime();
-
-// 设置定时器，每秒更新一次
 setInterval(updateCurrentTime, 1000);
-
+</script>
