@@ -2,28 +2,6 @@
 layout: default
 ---
 
-# 欢迎来到我的博客
-
-<div class="publish-info">
-    📅 本博客创建于 <strong><span id="publish-time"></span></strong>
-</div>
-<p>当前时间：<span class="current-time" id="current-time"></span></p>
-<p>这是我通过 GitHub Pages 搭建的个人博客，使用 Netlify CMS 管理内容。</p>
-
----
-
-## 📚 最新文章
-
-{% for post in site.posts %}
-### [{{ post.title }}]({{ post.url }})
-*{{ post.date | date: "%Y-%m-%d" }}*
-
-{{ post.excerpt | strip_html | truncate: 200 }}
-
-[阅读全文]({{ post.url }})  
----
-{% endfor %}
-
 <style>
 .publish-info {
     color: #666;
@@ -39,13 +17,60 @@ layout: default
     color: #28a745;
     font-weight: bold;
 }
+/* 给文章列表加点样式 */
+.post-item {
+    margin-bottom: 30px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #eee;
+}
+.post-title {
+    color: #0366d6;
+    text-decoration: none;
+}
+.post-title:hover {
+    text-decoration: underline;
+}
+.post-date {
+    color: #666;
+    font-size: 0.9em;
+}
+.read-more {
+    display: inline-block;
+    margin-top: 10px;
+    color: #0366d6;
+    text-decoration: none;
+}
+.read-more:hover {
+    text-decoration: underline;
+}
 </style>
+
+# 👋 欢迎来到我的博客
+
+<div class="publish-info">
+    📅 本博客创建于 <strong><span id="publish-time"></span></strong>
+</div>
+<p>⏰ 当前时间：<span class="current-time" id="current-time"></span></p>
+<p>✍️ 这是我通过 GitHub Pages 搭建的个人博客，使用 Netlify CMS 管理内容。</p>
+
+---
+
+## 📚 最新文章
+
+{% for post in site.posts %}
+<div class="post-item">
+    <h3><a href="{{ post.url }}" class="post-title">{{ post.title }}</a></h3>
+    <span class="post-date">{{ post.date | date: "%Y年%m月%d日" }}</span>
+    <p>{{ post.excerpt | strip_html | truncate: 200 }}</p>
+    <a href="{{ post.url }}" class="read-more">阅读全文 →</a>
+</div>
+{% endfor %}
 
 <!-- Netlify Identity Widget -->
 <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
 
 <script>
-// Netlify Identity 登录跳转
+// 你原来的 JavaScript 代码保持不变
 if (window.netlifyIdentity) {
   window.netlifyIdentity.on("init", function (user) {
     if (!user) {
@@ -56,12 +81,8 @@ if (window.netlifyIdentity) {
   });
 }
 
-// =============================================
-// 功能1：记录并显示第一次发布的时间（永久保存）
-// =============================================
 function getPublishTime() {
     let publishTime = localStorage.getItem('blogPublishTime');
-    
     if (!publishTime) {
         const now = new Date();
         const year = now.getFullYear();
@@ -70,22 +91,14 @@ function getPublishTime() {
         const hour = now.getHours().toString().padStart(2, '0');
         const minute = now.getMinutes().toString().padStart(2, '0');
         const second = now.getSeconds().toString().padStart(2, '0');
-        
         publishTime = `${year}年${month}月${day}日${hour}时${minute}分${second}秒`;
         localStorage.setItem('blogPublishTime', publishTime);
-        console.log('🎯 首次发布时间已记录：', publishTime);
-    } else {
-        console.log('📌 读取到已保存的发布时间：', publishTime);
     }
-    
     return publishTime;
 }
 
 document.getElementById('publish-time').innerText = getPublishTime();
 
-// =============================================
-// 功能2：实时更新当前时间（每秒跳动）
-// =============================================
 function updateCurrentTime() {
     const now = new Date();
     const year = now.getFullYear();
@@ -94,13 +107,7 @@ function updateCurrentTime() {
     const hour = now.getHours().toString().padStart(2, '0');
     const minute = now.getMinutes().toString().padStart(2, '0');
     const second = now.getSeconds().toString().padStart(2, '0');
-    
-    const currentTimeStr = `${year}年${month}月${day}日${hour}时${minute}分${second}秒`;
-    
-    const currentTimeEl = document.getElementById('current-time');
-    if (currentTimeEl) {
-        currentTimeEl.innerText = currentTimeStr;
-    }
+    document.getElementById('current-time').innerText = `${year}年${month}月${day}日${hour}时${minute}分${second}秒`;
 }
 
 updateCurrentTime();
