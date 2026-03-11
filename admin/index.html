@@ -1,20 +1,38 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
-    <title>博客内容管理</title>
-    <!-- 👇 在这里添加下面这段样式代码来修复光标问题 👇 -->
-    <style>
-      div[data-slate-editor] {
-          -webkit-user-modify: read-write !important;
-      }
-    </style>
-    <!-- 👆 样式代码结束 👆 -->
-  </head>
-  <body>
-    <!-- 引入Netlify CMS的核心脚本 -->
-    <script src="https://unpkg.com/netlify-cms@^2.0.0/dist/netlify-cms.js"></script>
-  </body>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+  <!-- 增强的光标修复样式 -->
+  <style>
+    /* 强制修正编辑器光标位置 */
+    [data-slate-editor] {
+      -webkit-user-modify: read-write !important;
+      -moz-user-modify: read-write !important;
+      user-modify: read-write !important;
+    }
+    /* 确保内容区域可滚动，提升体验 */
+    .cms-editor {
+      overflow-y: auto !important;
+    }
+  </style>
+  <title>博客内容管理</title>
+</head>
+<body>
+  <!-- 将脚本放在 body 底部，确保 DOM 加载完成后再初始化 CMS -->
+  <script src="https://unpkg.com/netlify-cms@^2.0.0/dist/netlify-cms.js"></script>
+  <!-- 可选的额外初始化脚本 -->
+  <script>
+    if (window.netlifyIdentity) {
+      window.netlifyIdentity.on('init', user => {
+        if (!user) {
+          window.netlifyIdentity.on('login', () => {
+            document.location.href = '/admin/';
+          });
+        }
+      });
+    }
+  </script>
+</body>
 </html>
