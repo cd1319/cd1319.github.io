@@ -8,7 +8,7 @@ layout: default
     📅 本博客创建于 <strong><span id="publish-time"></span></strong>
 </div>
 <p>当前时间：<span class="current-time" id="current-time"></span></p>
-//<p>这是我通过 GitHub Pages 搭建的个人博客，使用 Netlify CMS 管理内容。</p>
+<p>这是我通过 GitHub Pages 搭建的个人博客，使用 Netlify CMS 管理内容。</p>
 
 ---
 
@@ -121,4 +121,4 @@ updateCurrentTime();
 
 // 设置定时器，每秒更新一次
 setInterval(updateCurrentTime, 1000);
-</script>
+
